@@ -15,7 +15,7 @@ defmodule CommonsPub.Circles.Circle do
 
   def changeset(circle \\ %Circle{}, attrs, opts \\ []),
     do: Changesets.auto(circle, attrs, opts, [])
- 
+
 end
 defmodule CommonsPub.Circles.Circle.Migration do
 
@@ -30,15 +30,9 @@ defmodule CommonsPub.Circles.Circle.Migration do
     end
   end
 
-  defmacro create_circle_table(), do: make_circle_table([])
-  defmacro create_circle_table([do: body]), do: make_circle_table(body)
-
-  defp make_circle_table(exprs) do
-    quote do
-      Pointers.Migrations.create_mixin_table(CommonsPub.Circles.Circle) do
-        unquote_splicing(exprs)
+  defp create_circle_table() do
+      create_pointable_table(Circle) do
       end
-    end
   end
 
   def migrate_circle(dir \\ direction())
